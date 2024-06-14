@@ -1,0 +1,168 @@
+<div class="md:flex">
+  <ul
+    class="flex-column w-80 space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0"
+  >
+    <li (click)="viewChanger('list')" class="cursor-pointer">
+      <div
+        [ngClass]="{
+          'custom-bg text-white hover:text-white': tabView === 'list'
+        }"
+        class="inline-flex text-lg items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-100 hover:bg-gray-200 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <i class="fa-solid fa-list mr-3 ml-3"></i>
+        Invoice List
+      </div>
+    </li>
+    <li (click)="viewChanger('generate')" class="cursor-pointer">
+      <div
+        [ngClass]="{
+          'custom-bg text-white hover:text-white': tabView === 'generate'
+        }"
+        class="inline-flex text-lg items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-100 hover:bg-gray-200 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+      >
+        <i class="fa-solid fa-pen-to-square mr-3 ml-3"></i>
+        Invoice Generator
+      </div>
+    </li>
+  </ul>
+
+  <!--If List -->
+  @if (tabView === "list") {
+  <div
+    class="p-6 bg-gray-100 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full"
+  >
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Invoice name</th>
+            <th scope="col" class="px-6 py-3">Date</th>
+            <th scope="col" class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th
+              scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              Invoice No: 02545124
+            </th>
+            <td class="px-6 py-4">13th June 2024</td>
+            <td class="px-6 py-4">
+              <button mat-button [matMenuTriggerFor]="menu">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>Download</button>
+                <button mat-menu-item>Edit</button>
+              </mat-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  }
+  <!--If Generate Tab -->
+  @if (tabView === "generate") {
+  <div
+    class="p-6 bg-gray-100 text-medium text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-full"
+  >
+    <form>
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+          <label
+            for="first_name"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Invoice name</label
+          >
+          <input
+            type="text"
+            id="first_name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Invoice ABC815SJDHFG"
+            required
+          />
+        </div>
+        <div>
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Select Date
+          </label>
+
+          <div class="relative max-w-sm">
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+              class="absolute -ml-4 inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                />
+              </svg>
+            </mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              type="text"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select date"
+            />
+          </div>
+
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+
+        <div class="col-span-2">
+          <label
+            for="website"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Description</label
+          >
+          <input
+            type="text"
+            id="website"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Write your description"
+            required
+          />
+        </div>
+        <div>
+          <label
+            for="first_name"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Amount in (BDT)</label
+          >
+          <input
+            type="number"
+            id="first_name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="5000"
+            required
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Generate
+      </button>
+    </form>
+  </div>
+  }
+</div>
